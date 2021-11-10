@@ -28,6 +28,7 @@
     optionLabel="name" 
     [style]="{'width':'15rem'}">
 </p-listbox>
+<button class="p-button" type="button" (click)="getGenerarDataset()">GO!</button>
 
 <h4>Unidades Dimensionales</h4>
 <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
@@ -47,3 +48,5 @@
 
 <h4>Epochs</h4>
 <p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
+
+<button class="p-button" type="button" (click)="getCargaTweets()">GO!</button>

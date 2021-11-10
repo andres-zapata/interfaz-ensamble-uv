@@ -5,6 +5,8 @@ import { ListboxModule } from 'primeng/listbox';
 import { FormsModule   } from '@angular/forms';
 import { InputNumberModule} from 'primeng/inputnumber';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -15,9 +17,10 @@ import { AppComponent } from './app.component';
     FormsModule,
     ButtonModule,
     ListboxModule,
-    InputNumberModule
+    InputNumberModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
