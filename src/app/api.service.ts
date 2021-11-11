@@ -28,7 +28,7 @@ export class ApiService {
         .set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
   }
 
-  getCargaTweets(params?: any): Observable<any> {
+  postCargaTweets(params?: any): Observable<any> {
     try {
       return this.http.post(`${API_URL}/cargarTweets`, params, { headers: this.getHeaders() });
     } catch (error) {
@@ -36,10 +36,19 @@ export class ApiService {
     }
   }
 
-  getGenerarDataset(params?: any): Observable<any> {
+  postGenerarDataset(params?: any): Observable<any> {
     try {
       var args = params == null ? {} : params;
       return this.http.post(`${API_URL}/generarDataset`, args, { headers: this.getHeaders() });
+    } catch (error) {
+      return throwError(new Error("Oops!"))
+    }
+  }
+
+  postTrainModels(params?: any): Observable<any> {
+    try {
+      var args = params == null ? {} : params;
+      return this.http.post(`${API_URL}/trainModels`, args, { headers: this.getHeaders() });
     } catch (error) {
       return throwError(new Error("Oops!"))
     }

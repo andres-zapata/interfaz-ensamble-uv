@@ -1,34 +1,15 @@
-<h4>Máquinas de aprendizaje</h4>
-<p-listbox 
-    [options]="maquinas" 
-    [(ngModel)]="selectedMaquinas" 
-    [multiple]="true" 
-    [checkbox]="true" 
-    [filter]="true" 
-    optionLabel="name" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
-
-<h4>Ensambles</h4>
-<p-listbox 
-    [options]="ensambles" 
-    [(ngModel)]="selectedEnsamble" 
-    [checkbox]="true" 
-    [filter]="true" 
-    optionLabel="name" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
-
 <h4>Preprocesamiento</h4>
 <p-listbox 
     [options]="preprocesamiento" 
     [(ngModel)]="selectedPreproc" 
     [checkbox]="true" 
     [filter]="true" 
-    optionLabel="name" 
+    optionLabel="grupo" 
     [style]="{'width':'15rem'}">
 </p-listbox>
-<button class="p-button" type="button" (click)="getGenerarDataset()">GO!</button>
+
+<button class="p-button" type="button" (click)="postGenerarDataset()">GO!</button>
+
 
 <h4>Unidades Dimensionales</h4>
 <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
@@ -49,4 +30,35 @@
 <h4>Epochs</h4>
 <p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
 
-<button class="p-button" type="button" (click)="getCargaTweets()">GO!</button>
+<h4>Máquinas de aprendizaje</h4>
+<p-listbox 
+    [options]="maquinas" 
+    [(ngModel)]="selectedMaquinas" 
+    [multiple]="true" 
+    [checkbox]="true" 
+    [filter]="true" 
+    [style]="{'width':'15rem'}">
+</p-listbox>
+
+<button 
+    pButton
+    class="p-button" 
+    type="button" 
+    (click)="postTrainModels()">
+
+    Entrenar!
+
+</button>
+
+<h4>Ensambles</h4>
+<p-listbox 
+    [options]="ensambles" 
+    [(ngModel)]="selectedEnsamble" 
+    [checkbox]="true" 
+    [filter]="true" 
+    optionLabel="name" 
+    [style]="{'width':'15rem'}">
+</p-listbox>
+
+
+<img [src]="imageLoss">

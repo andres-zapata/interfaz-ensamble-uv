@@ -19,6 +19,7 @@ export class AppComponent {
   ensambles:any[];
   selectedPreproc:any;
   preprocesamiento:any[];
+  imageLoss: any;
 
   constructor(private apiService:ApiService ){
 
@@ -31,27 +32,29 @@ export class AppComponent {
       { name : 'sigmoid'},
       { name : 'softmax'}
     ]
+    this.imageLoss = undefined
 
     this.selectedMaquinas = []
     this.maquinas = [
-      { name : 'LSTM'         , id : '1', type : 'NN'},
-      { name : 'LSTM-2'       , id : '3', type : 'NN'},
-      { name : 'RCNN'         , id : '3', type : 'NN'},
-      { name : 'BIGRU'        , id : '4', type : 'NN'},
-      { name : 'BIGRU-2'      , id : '5', type : 'NN'},
-      { name : 'Naive Bayes'  , id : '6', type : 'Classic'},
-      { name : 'SVM'          , id : '7', type : 'Classic'},
-      { name : 'Random Forest', id : '9', type : 'Classic'},
+       'LSTM',
+       'LSTM-2',
+       'RCNN',
+       'BIGRU',
+       'BIGRU-2',
+       'Naive Bayes',
+       'SVM',
+       'Random Forest'
     ]
 
-    this.selectedEnsamble = undefined
+    this.selectedEnsamble = { name : 'Bagging'  , id : '1'}
+
     this.ensambles = [
       { name : 'Bagging'  , id : '1'},
       { name : 'Stacking' , id : '2'},
       { name : 'Promedio' , id : '3'}
     ]
 
-    this.selectedPreproc = undefined
+    this.selectedPreproc = { grupo : 1}
     this.preprocesamiento = [
       { grupo : 1},
       { grupo : 2}
@@ -61,9 +64,9 @@ export class AppComponent {
   ngOnInit(){
   }
 
-  async getCargaTweets(){
+  async postCargaTweets(){
     await this.apiService
-    .getCargaTweets(this.selectedMaquinas)
+    .postCargaTweets(this.selectedMaquinas)
     .subscribe(res => {
         let examsList = res;
       },
@@ -71,11 +74,26 @@ export class AppComponent {
     ); 
   }
 
-  getGenerarDataset(){
+  postGenerarDataset(){
     let res = this.apiService
-    .getGenerarDataset(this.selectedPreproc)
+    .postGenerarDataset(this.selectedPreproc.grupo)
     .subscribe(res => {
         let response = res;
+      },
+      console.error
+    ); 
+  }
+
+  postTrainModels(){
+    let data = {
+      preProc : this.selectedPreproc.grupo,
+      maquinas : this.selectedMaquinas
+    }
+    let res = this.apiService
+    .postTrainModels(data)
+    .subscribe(res => {
+        this.imageLoss = res;
+
       },
       console.error
     ); 
