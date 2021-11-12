@@ -26,7 +26,7 @@ export class ApiService {
         .set('Access-Control-Allow-Origin','*')
         .set("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
         .set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
-  }
+      }
 
   postCargaTweets(params?: any): Observable<any> {
     try {
@@ -45,10 +45,10 @@ export class ApiService {
     }
   }
 
-  postTrainModels(params?: any): Observable<any> {
+  postTrainModels(params?: any): Observable<Blob> {
     try {
       var args = params == null ? {} : params;
-      return this.http.post(`${API_URL}/trainModels`, args, { headers: this.getHeaders() });
+      return this.http.post(`${API_URL}/trainModels`, args, { headers: this.getHeaders() , responseType:'blob'});
     } catch (error) {
       return throwError(new Error("Oops!"))
     }

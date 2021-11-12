@@ -61,6 +61,9 @@ export class AppComponent {
     ]
   }
 
+  imageToShow: any;
+  isImageLoading: boolean = false;
+
   ngOnInit(){
   }
 
@@ -85,6 +88,7 @@ export class AppComponent {
   }
 
   postTrainModels(){
+    this.isImageLoading = true
     let data = {
       preProc : this.selectedPreproc.grupo,
       maquinas : this.selectedMaquinas
@@ -93,9 +97,24 @@ export class AppComponent {
     .postTrainModels(data)
     .subscribe(res => {
         this.imageLoss = res;
+        console.log('type : ', typeof(this.imageLoss))
 
+        this.createImageFromBlob(res)
+        this.isImageLoading = false
       },
       console.error
     ); 
   }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+   }
+
 }
