@@ -19,7 +19,6 @@ export class AppComponent {
   ensambles:any[];
   selectedPreproc:any;
   preprocesamiento:any[];
-  imageLoss: any;
 
   constructor(private apiService:ApiService ){
 
@@ -32,7 +31,6 @@ export class AppComponent {
       { name : 'sigmoid'},
       { name : 'softmax'}
     ]
-    this.imageLoss = undefined
 
     this.selectedMaquinas = []
     this.maquinas = [
@@ -61,9 +59,10 @@ export class AppComponent {
     ]
   }
 
-  imageToShow: any;
+  imageToShowAcc: any;
+  imageToShowLoss:any;
   isImageLoading: boolean = false;
-
+  
   ngOnInit(){
   }
 
@@ -88,33 +87,42 @@ export class AppComponent {
   }
 
   postTrainModels(){
-    this.isImageLoading = true
     let data = {
       preProc : this.selectedPreproc.grupo,
-      maquinas : this.selectedMaquinas
+      maquinas : this.selectedMaquinas,
+      unidadesDimensionales : this.unidadesDimensionales,
+      dropout : this.dropout,
+      epochs : this.epochs
     }
+    this.isImageLoading = true;
+    
+    
     let res = this.apiService
     .postTrainModels(data)
     .subscribe(res => {
-        this.imageLoss = res;
-        console.log('type : ', typeof(this.imageLoss))
 
-        this.createImageFromBlob(res)
-        this.isImageLoading = false
-      },
-      console.error
-    ); 
+        //let url = res.accRoute
+
+        let url = "pre2_acc.png"
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowAcc = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+
+
+        //url = res.lossRoute
+        url = "pre2_loss.png"
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowLoss = reader.result;}, false);
+          reader.readAsDataURL(data);      
+          this.isImageLoading = false;
+        });
+    });
+    
+
+    
   }
-
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       this.imageToShow = reader.result;
-    }, false);
- 
-    if (image) {
-       reader.readAsDataURL(image);
-    }
-   }
 
 }

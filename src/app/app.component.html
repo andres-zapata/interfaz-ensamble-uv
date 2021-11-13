@@ -10,46 +10,52 @@
 
 <button class="p-button" type="button" (click)="postGenerarDataset()">GO!</button>
 
+<div style="display: inline;">
+    <div>
+        <h4>Unidades Dimensionales</h4>
+        <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
 
-<h4>Unidades Dimensionales</h4>
-<p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
+        <h4>Dropout</h4>
+        <p-inputNumber [(ngModel)]="dropout"></p-inputNumber>
 
-<h4>Dropout</h4>
-<p-inputNumber [(ngModel)]="dropout"></p-inputNumber>
+        <h4>Funcion de Activacion</h4>
+        <p-listbox 
+            [options]="funcionDeAct" 
+            [(ngModel)]="selectedFuncionDeAct" 
+            [checkbox]="true" 
+            [filter]="true" 
+            optionLabel="name" 
+            [style]="{'width':'15rem'}">
+        </p-listbox>
 
-<h4>Funcion de Activacion</h4>
-<p-listbox 
-    [options]="funcionDeAct" 
-    [(ngModel)]="selectedFuncionDeAct" 
-    [checkbox]="true" 
-    [filter]="true" 
-    optionLabel="name" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
+        <h4>Epochs</h4>
+        <p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
 
-<h4>Epochs</h4>
-<p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
+        <h4>Máquinas de aprendizaje</h4>
+        <p-listbox 
+            [options]="maquinas" 
+            [(ngModel)]="selectedMaquinas" 
+            [multiple]="true" 
+            [checkbox]="true" 
+            [filter]="true" 
+            [style]="{'width':'15rem'}">
+        </p-listbox>
 
-<h4>Máquinas de aprendizaje</h4>
-<p-listbox 
-    [options]="maquinas" 
-    [(ngModel)]="selectedMaquinas" 
-    [multiple]="true" 
-    [checkbox]="true" 
-    [filter]="true" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
+        <button 
+            pButton
+            class="p-button" 
+            type="button" 
+            (click)="postTrainModels()">
 
-<button 
-    pButton
-    class="p-button" 
-    type="button" 
-    (click)="postTrainModels()">
+            Entrenar!
 
-    Entrenar!
-
-</button>
-
+        </button>
+    </div>
+    <div>
+        <img [src]="imageToShowAcc" alt="Acc" *ngIf="!isImageLoading;">
+        <img [src]="imageToShowLoss" alt="Loss" *ngIf="!isImageLoading;">
+    </div>
+</div>
 <h4>Ensambles</h4>
 <p-listbox 
     [options]="ensambles" 
@@ -60,10 +66,3 @@
     [style]="{'width':'15rem'}">
 </p-listbox>
 
-
-<img [src]="imageToShow"
-     alt="Place image title"
-     *ngIf="!isImageLoading; else noImageFound">
-<ng-template #noImageFound>
-     <img src="fallbackImage.png" alt="Fallbackimage">
-</ng-template>

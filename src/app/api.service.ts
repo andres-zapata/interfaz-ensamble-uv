@@ -45,12 +45,23 @@ export class ApiService {
     }
   }
 
-  postTrainModels(params?: any): Observable<Blob> {
+  postTrainModels(params?: any): Observable<any> {
     try {
       var args = params == null ? {} : params;
-      return this.http.post(`${API_URL}/trainModels`, args, { headers: this.getHeaders() , responseType:'blob'});
+      return this.http.post(`${API_URL}/trainModels`, args, { headers: this.getHeaders() });
     } catch (error) {
       return throwError(new Error("Oops!"))
     }
   }
+
+
+  postImage(params?: any): Observable<Blob> {
+    try {
+      var args = params == null ? {} : params;
+      return this.http.post(`${API_URL}/postImage`, args, { headers: this.getHeaders() , responseType: 'blob'});
+    } catch (error) {
+      return throwError(new Error("Oops!"))
+    }
+  }
+
 }
