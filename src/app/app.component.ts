@@ -61,6 +61,10 @@ export class AppComponent {
 
   imageToShowAcc: any;
   imageToShowLoss:any;
+  imageToShowEnsambleAcc: any;
+  imageToShowEnsambleLoss:any;
+  imageToShowEnsambleMatrix:any;
+
   isImageLoading: boolean = false;
   
   ngOnInit(){
@@ -121,7 +125,85 @@ export class AppComponent {
         });
     });
     
+  }
 
+  postTrainEnsamble(){
+    let data = {
+      maquinas : this.selectedMaquinas,
+    }
+
+    if (this.selectedEnsamble.id == 1) {
+      this.apiService.postTrainEnsambleBagging(data)
+      .subscribe(res => {
+
+        let url = res.accRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleAcc = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+        url = res.lossRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleLoss = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+        url = res.matrixRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleMatrix = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+      })
+    }
+
+    if (this.selectedEnsamble.id == 2) {
+      this.apiService.postTrainEnsambleStacking(data)
+      .subscribe(res => {
+
+        let url = res.accRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleAcc = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+        url = res.lossRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleLoss = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+        url = res.matrixRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleMatrix = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+      })
+    }
+
+
+    if (this.selectedEnsamble.id == 3) {
+      this.apiService.postTrainEnsamblePromedio(data)
+      .subscribe(res => {
+
+        let url = res.matrixRoute
+        this.apiService.postImage({url : url}).subscribe(data => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {this.imageToShowEnsambleMatrix = reader.result;}, false);
+          reader.readAsDataURL(data);      
+        });
+  
+      })
+    }
+
+    
     
   }
 

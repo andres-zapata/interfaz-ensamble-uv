@@ -10,8 +10,8 @@
 
 <button class="p-button" type="button" (click)="postGenerarDataset()">GO!</button>
 
-<div style="display: inline;">
-    <div>
+<div class="flex-container">
+    <div class="flex-child">
         <h4>Unidades Dimensionales</h4>
         <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
 
@@ -51,18 +51,37 @@
 
         </button>
     </div>
-    <div>
-        <img [src]="imageToShowAcc" alt="Acc" *ngIf="!isImageLoading;">
-        <img [src]="imageToShowLoss" alt="Loss" *ngIf="!isImageLoading;">
+    <div class="flex-child">
+        <img [src]="imageToShowAcc"  alt="Acc"  *ngIf="!isImageLoading;" width='400px'>
+        <img [src]="imageToShowLoss" alt="Loss" *ngIf="!isImageLoading;" width='400px'>
     </div>
 </div>
-<h4>Ensambles</h4>
-<p-listbox 
-    [options]="ensambles" 
-    [(ngModel)]="selectedEnsamble" 
-    [checkbox]="true" 
-    [filter]="true" 
-    optionLabel="name" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
 
+<div class="flex-container">
+    <div class="flex-child">
+        <h4>Ensambles</h4>
+        <p-listbox 
+            [options]="ensambles" 
+            [(ngModel)]="selectedEnsamble" 
+            [checkbox]="true" 
+            [filter]="true" 
+            optionLabel="name" 
+            [style]="{'width':'15rem'}">
+        </p-listbox>
+        <button 
+            pButton
+            class="p-button" 
+            type="button" 
+            (click)="postTrainEnsamble()">
+
+            Entrenar!
+
+        </button>
+    </div>
+
+    <div class="flex-child">
+        <img [src]="imageToShowEnsambleAcc"    alt="Acc"    *ngIf="!isImageLoading;" width='400px'>
+        <img [src]="imageToShowEnsambleLoss"   alt="Loss"   *ngIf="!isImageLoading;" width='400px'>
+        <img [src]="imageToShowEnsambleMatrix" alt="Matrix" *ngIf="!isImageLoading;" width='400px'>
+    </div>
+</div>

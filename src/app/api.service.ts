@@ -54,7 +54,32 @@ export class ApiService {
     }
   }
 
+  postTrainEnsambleStacking(params?: any): Observable<any> {
+    try {
+      var args = params == null ? {} : params;
+      return this.http.post(`${API_URL}/trainEnsambleStacking`, args, { headers: this.getHeaders() });
+    } catch (error) {
+      return throwError(new Error("Oops!"))
+    }
+  }
 
+  postTrainEnsamblePromedio(params?: any): Observable<any> {
+    try {
+      var args = params == null ? {} : params;
+      return this.http.post(`${API_URL}/trainEnsamblePromedio`, args, { headers: this.getHeaders() });
+    } catch (error) {
+      return throwError(new Error("Oops!"))
+    }
+  }
+
+  postTrainEnsambleBagging(params?: any): Observable<any> {
+    try {
+      var args = params == null ? {} : params;
+      return this.http.post(`${API_URL}/trainEnsambleBagging`, args, { headers: this.getHeaders() });
+    } catch (error) {
+      return throwError(new Error("Oops!"))
+    }
+  }
   postImage(params?: any): Observable<Blob> {
     try {
       var args = params == null ? {} : params;

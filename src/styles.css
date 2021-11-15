@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+.float-container {
+    border: 1px solid rgb(143, 143, 143);
+    background-color: bisque;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+}  
+
+
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid yellow;
+}  
+
+.flex-child:first-child {
+    margin-right: 0px;
+} 
