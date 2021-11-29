@@ -1,87 +1,113 @@
-<h4>Preprocesamiento</h4>
-<p-listbox 
-    [options]="preprocesamiento" 
-    [(ngModel)]="selectedPreproc" 
-    [checkbox]="true" 
-    [filter]="true" 
-    optionLabel="grupo" 
-    [style]="{'width':'15rem'}">
-</p-listbox>
+<div class="root">
+    <h3>1er Paso: Preprocesar Dataset</h3>
+    <p>Se debe cargar y preprocesr el dataset antes de entrenar las maquinás de aprendizaje y ensambles.</p>
+    <h4>Elegir Grupo de Preprocesamiento</h4>
+    <p-listbox 
+        [options]="preprocesamiento" 
+        [(ngModel)]="selectedPreproc" 
+        [checkbox]="true" 
+        [filter]="true" 
+        optionLabel="grupo" 
+        [style]="{'width':'15rem', 'margin':'auto'}">
+    </p-listbox>
 
-<button class="p-button" type="button" (click)="postGenerarDataset()">GO!</button>
+    <button class="p-button" type="button" style="margin-bottom: 20px; margin-top: 20px;" (click)="postGenerarDataset()">GO!</button>
 
-<div class="flex-container">
-    <div class="flex-child">
-        <h4>Unidades Dimensionales</h4>
-        <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
+    <div class="flex-container">
+        <div class="flex-child">
+            <h3>2do Paso: Entrenar Maquinás De Aprendizaje</h3>
+            <p style="margin-left: 10px; margin-right: 10px;">
+                Se debe elegir los parametros para entrenar las maquinás de aprendizaje y elegir los modelos a entrenar para luego usar en el ensamble.
+            </p>
+            <h4>Elegir Cantidad De Unidades Dimensionales</h4>
+            <p-inputNumber [(ngModel)]="unidadesDimensionales"></p-inputNumber>
 
-        <h4>Dropout</h4>
-        <p-inputNumber [(ngModel)]="dropout"></p-inputNumber>
+            <h4>Elegir Dropout</h4>
+            <p-inputNumber [(ngModel)]="dropout"></p-inputNumber>
 
-        <h4>Funcion de Activacion</h4>
-        <p-listbox 
-            [options]="funcionDeAct" 
-            [(ngModel)]="selectedFuncionDeAct" 
-            [checkbox]="true" 
-            [filter]="true" 
-            optionLabel="name" 
-            [style]="{'width':'15rem'}">
-        </p-listbox>
+            <h4>Elegir Funcion de Activacion</h4>
+            <p-listbox 
+                [options]="funcionDeAct" 
+                [(ngModel)]="selectedFuncionDeAct" 
+                [checkbox]="true" 
+                [filter]="true" 
+                optionLabel="name" 
+                [style]="{'width':'15rem', 'margin':'auto'}">
+            </p-listbox>
 
-        <h4>Epochs</h4>
-        <p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
+            <h4>Elegir Epochs</h4>
+            <p-inputNumber [(ngModel)]="epochs"></p-inputNumber>
 
-        <h4>Máquinas de aprendizaje</h4>
-        <p-listbox 
-            [options]="maquinas" 
-            [(ngModel)]="selectedMaquinas" 
-            [multiple]="true" 
-            [checkbox]="true" 
-            [filter]="true" 
-            [style]="{'width':'15rem'}">
-        </p-listbox>
+            <h4>Elegir Máquinas de aprendizaje</h4>
+            <p-listbox 
+                [options]="maquinas" 
+                [(ngModel)]="selectedMaquinas" 
+                [multiple]="true" 
+                [checkbox]="true" 
+                [filter]="true" 
+                [style]="{'width':'15rem', 'margin':'auto'}">
+            </p-listbox>
 
-        <button 
-            pButton
-            class="p-button" 
-            type="button" 
-            (click)="postTrainModels()">
+            <button 
+                pButton
+                class="p-button boton" 
+                type="button"
+                style="margin-bottom: 20px; margin-top: 20px;"
+                (click)="postTrainModels()">
 
-            Entrenar!
+                Entrenar!
 
-        </button>
-    </div>
-    <div class="flex-child">
-        <img [src]="imageToShowAcc"  alt="Acc"  *ngIf="!isImageLoading;" width='400px'>
-        <img [src]="imageToShowLoss" alt="Loss" *ngIf="!isImageLoading;" width='400px'>
-    </div>
-</div>
-
-<div class="flex-container">
-    <div class="flex-child">
-        <h4>Ensambles</h4>
-        <p-listbox 
-            [options]="ensambles" 
-            [(ngModel)]="selectedEnsamble" 
-            [checkbox]="true" 
-            [filter]="true" 
-            optionLabel="name" 
-            [style]="{'width':'15rem'}">
-        </p-listbox>
-        <button 
-            pButton
-            class="p-button" 
-            type="button" 
-            (click)="postTrainEnsamble()">
-
-            Entrenar!
-
-        </button>
+            </button>
+        </div>
+        <div class="flex-child" *ngIf="!isImageLoading;" >
+        <ng-container *ngIf="clickTrainModels; else noClickModels">
+            <img [src]="imageToShowAcc"  alt="Acc"  width='400px'>
+            <img [src]="imageToShowLoss" alt="Loss" width='400px'>
+        </ng-container>
+        <ng-template #noClickModels>
+            Entrenar para mostrar imagenes
+        </ng-template>
+        </div>
     </div>
 
-    <div class="flex-child">
-        <img [src]="imageToShowEnsambleAcc"    alt="Acc"    *ngIf="!isImageLoading;" width='400px'>
-        <img [src]="imageToShowEnsambleLoss"   alt="Loss"   *ngIf="!isImageLoading;" width='400px'>
-        <img [src]="imageToShowEnsambleMatrix" alt="Matrix" *ngIf="!isImageLoading;" width='400px'>
+    <div class="flex-container">
+        <div class="flex-child">
+            <h3>3er Paso: Entrenar Ensamble</h3>
+            <p style="margin-left: 10px; margin-right: 10px;">
+                Se debe elegir la técnica de ensamble.
+            </p>
+
+            <h4>Elegir Técnica De Ensamble</h4>
+            <p-listbox 
+                [options]="ensambles" 
+                [(ngModel)]="selectedEnsamble" 
+                [checkbox]="true" 
+                [filter]="true" 
+                optionLabel="name" 
+                [style]="{'width':'15rem', 'margin':'auto'}">
+            </p-listbox>
+            <button 
+                pButton
+                class="p-button"
+                style="margin-bottom: 20px; margin-top: 20px;"
+                type="button" 
+                (click)="postTrainEnsamble()">
+
+                Entrenar!
+
+            </button>
+        </div>
+
+        <div class="flex-child" *ngIf="!isImageLoading;">
+        <ng-container *ngIf="clickTrainEnsamble; else noClickEnsamble">
+            <img [src]="imageToShowEnsambleAcc"    alt="Acc"     width='400px'>
+            <img [src]="imageToShowEnsambleLoss"   alt="Loss"    width='400px'>
+            <img [src]="imageToShowEnsambleMatrix" alt="Matrix" width='400px'>
+        </ng-container>
+        <ng-template #noClickEnsamble>
+            Entrenar para mostrar imagenes
+        </ng-template>
+        </div>
+
     </div>
 </div>

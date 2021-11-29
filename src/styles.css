@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+.body {
+    background-color: rgb(154, 177, 215);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.root {
+    display: block;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}
+
+.boton {
+    margin-bottom: 20px; 
+    margin-top: 20px;
+}
+
 .float-container {
     border: 1px solid rgb(143, 143, 143);
     background-color: bisque;
@@ -16,9 +36,9 @@
 
 .flex-child {
     flex: 1;
-    border: 2px solid yellow;
+    border: 2px solid white;
 }  
 
 .flex-child:first-child {
     margin-right: 0px;
-} 
+}

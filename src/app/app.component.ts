@@ -19,8 +19,12 @@ export class AppComponent {
   ensambles:any[];
   selectedPreproc:any;
   preprocesamiento:any[];
+  clickTrainModels: boolean;
+  clickTrainEnsamble: boolean;
 
   constructor(private apiService:ApiService ){
+    this.clickTrainModels = false;
+    this.clickTrainEnsamble = false;
 
     this.unidadesDimensionales = 128;
     this.dropout = 0.5;
@@ -96,9 +100,11 @@ export class AppComponent {
       maquinas : this.selectedMaquinas,
       unidadesDimensionales : this.unidadesDimensionales,
       dropout : this.dropout,
-      epochs : this.epochs
+      epochs : this.epochs,
+      funcionActivacion : this.selectedFuncionDeAct.name
     }
     this.isImageLoading = true;
+    this.clickTrainModels = true;
     
     
     let res = this.apiService
@@ -128,6 +134,7 @@ export class AppComponent {
   }
 
   postTrainEnsamble(){
+    this.clickTrainEnsamble = true;
     let data = {
       maquinas : this.selectedMaquinas,
     }
