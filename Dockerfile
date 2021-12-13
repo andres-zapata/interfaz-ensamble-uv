@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . ./
 
-CMD ["ng", "serve"]
+# CMD ["ng", "serve", "--host", "0.0.0.0"]
+
+CMD ["npm", "start"]

@@ -75,23 +75,17 @@ export class AppComponent {
   }
 
   async postCargaTweets(){
-    await this.apiService
-    .postCargaTweets(this.selectedMaquinas)
-    .subscribe(res => {
-        let examsList = res;
-      },
-      console.error
-    ); 
+    try {
+      await this.apiService.postCargaTweets(this.selectedMaquinas).toPromise()
+      await this.apiService.postGenerarDataset(this.selectedPreproc.grupo).toPromise();
+      console.log('aaaa')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  postGenerarDataset(){
-    let res = this.apiService
-    .postGenerarDataset(this.selectedPreproc.grupo)
-    .subscribe(res => {
-        let response = res;
-      },
-      console.error
-    ); 
+  async postGenerarDataset(){
+    await this.apiService.postGenerarDataset(this.selectedPreproc.grupo).toPromise();
   }
 
   postTrainModels(){
